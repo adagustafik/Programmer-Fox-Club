@@ -1,0 +1,32 @@
+* {
+    margin: 0 0 20px 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 600px;
+    margin: 30px auto;
+}
+
+li {
+    margin: 0;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #84a6dd;
+    border-radius: 3px;
+}
+
+button {
+    padding: 1px 5px 1px 5px;
+}
+
+select {
+    width: 80px;
+}
+
+select.long {
+    width: 200px;
+}

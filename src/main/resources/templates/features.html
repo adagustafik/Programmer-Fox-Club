@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          th:href="@{/style.css}"
+          href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>Programmer Fox Club</title>
+</head>
+<body>
+    <nav th:replace="~{information::navbar}">
+        NAV BAR
+    </nav>
+    <!--    nutritionStore-->
+    <form th:if="${foods}" th:method="post" th:action="@{/nutritionStore}">
+        <label>Food</label>
+        <select name="food">
+            <option th:each="food :${foods}" th:text="${#strings.toLowerCase(food)}" th:value="${food}"
+                    th:selected="${food} == ${fox.food}">Food</option>
+        </select>
+        <label>Drink</label>
+        <select name="drink">
+            <option th:each="drink :${drinks}" th:text="${#strings.toLowerCase(drink)}" th:value="${drink}"
+                    th:selected="${drink} == ${fox.drink}">Drink</option>
+        </select>
+        <button type="submit">Change</button>
+    </form>
+    <!--    trickCenter-->
+    <form th:if="${tricks} and ${fox.getTricks().size() != tricks.length}" th:method="post" th:action="@{/trickCenter}">
+        <label>Tricks</label>
+        <select name="trick" class="long">
+            <option th:if="!${fox.getTricks().contains(trick)}" th:each="trick :${tricks}" th:text="${#strings.toLowerCase(trick.text)}" th:value="${trick}">Trick</option>
+        </select>
+        <button type="submit">Learn</button>
+    </form>
+    <p th:if="${tricks} and ${fox.getTricks().size() == tricks.length}" th:text="'Your fox has learned all the tricks. Go and create another one...'"></p>
+    <!--    actionHistory-->
+    <section th:if="${actions}">
+        <h1 th:text="'Action history'">Action history</h1>
+        <ul th:if="${actions.size() > 0}">
+            <li th:each="action, iter :${actions}" th:text="${action}"></li>
+        </ul>
+        <p th:unless="${actions.size() > 0}" th:text="'No actions were done so far. Go and play...'"></p>
+    </section>
+</body>
+</html>

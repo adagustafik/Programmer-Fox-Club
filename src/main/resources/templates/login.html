@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          th:href="@{/style.css}"
+          href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+    <form th:action="@{/login}" th:method="post">
+        <p th:if="${param.error}">Login was not successful. Try again!</p>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text">
+        <br>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password">
+        <br>
+        <button type="submit" >Login</button>
+    </form>
+    <p>Are you new to Programmer Fox Club?</p>
+    <p>Go to <a th:href="@{/register}">registration</a> page!</p>
+</body>
+</html>

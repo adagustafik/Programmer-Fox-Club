@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          th:href="@{/style.css}"
+          href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>Add new Fox to the Fox Club</title>
+</head>
+<body>
+    <h1>Welcome to Programmer Fox Club!</h1>
+    <p>Please provide a name, so you can associate it to your pet!</p>
+    <form th:method="post" th:action="@{/create}" th:object="${fox}">
+        <label th:for="'name'">Name</label>
+        <input th:field="*{name}" type="text" autofocus required minlength="3" maxlength="16">
+        <button type="submit">GO</button>
+        <br>
+        <div th:if="${#fields.hasErrors()}">
+            <ul>
+                <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+            </ul>
+        </div>
+    </form>
+</body>
+</html>

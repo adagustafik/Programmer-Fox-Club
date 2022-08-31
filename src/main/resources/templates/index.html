@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="stylesheet"
+          th:href="@{/style.css}"
+          href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>Programmer Fox Club</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</nav>
+<ul th:if="${foxes.size() > 0}">
+    <li th:each="fox, iter :${foxes}"><a th:href="@{/information/{id}(id=${fox.id})}" th:text="${fox.name}">name</a></li>
+</ul>
+<p th:unless="${foxes.size() > 0}" th:text="'You have not created any foxes yet. Go and create some...'"></p>
+<p><a th:href="@{/create}">Create new Fox</a></p>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          th:href="@{/style.css}"
+          href="../static/style.css">
+    <meta charset="UTF-8">
+    <title>My Fox Information Page</title>
+</head>
+<body>
+<nav th:fragment="navbar">
+    <ul>
+        <div th:if="${fox} or ${actions}">
+            <li><a th:href="@{/logout}">Logout</a></li>
+            <li><a th:href="@{/}">Select Another Fox</a></li>
+            <li><a th:href="@{/information}">Fox Information</a></li>
+            <li><a th:href="@{/nutritionStore}">Nutrition Store</a></li>
+            <li><a th:href="@{/trickCenter}">Trick Center</a></li>
+            <li><a th:href="@{/actionHistory}">Action History</a></li>
+        </div>
+    </ul>
+</nav>
+<img th:src="@{/greenfox.png}" src="../static/greenfox.png">
+    <div th:if="${fox}">
+        <p th:object="${fox}" th:text="'This is ' + *{name} + ' currently living on ' + ${#strings.toLowerCase(fox.food)}
+        + ' and ' + ${#strings.toLowerCase(fox.drink)} + '. He knows ' + ${fox.getTricks().size()} + ' tricks.'">TEXT</p>
+        <h1 th:text="'Known tricks'">Known tricks</h1>
+        <p th:if="${fox.getTricks.size() == 0}" th:text="'Your fox knows no tricks. Go and learn some...'"></p>
+        <ul>
+            <li th:each="trick :${fox.getTricks}" th:text="${#strings.toLowerCase(trick.text)}"></li>
+        </ul>
+
+        <h1 th:text="'Action history'">Action history</h1>
+        <ul th:if="${actions.size() > 0}">
+            <li th:each="action, iter :${actions}" th:if="${iter.index < 5}" th:text="${action}"></li>
+        </ul>
+        <p th:unless="${actions.size() > 0}" th:text="'No actions were done so far. Go and play...'"></p>
+    </div>
+</body>
+</html>
