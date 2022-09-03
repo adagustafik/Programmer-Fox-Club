@@ -53,23 +53,26 @@ template engine
 
 
 ### Basic data flows
-* GET Spring Security WebMvcConfig templates/login ->
+* LOGIN: GET Spring Security WebMvcConfig templates/login ->
   - [on success] UserApiDto received + autContext setup (apiKey, avatarUrl, channels) -> redirect root ->
-  - MainController get authenticated user -> diplay templates/index (logout, all pets, new)
+  - MainController get authenticated user -> generate templates/index (logout, all pets, new)
   - [on error] Spring Security handles -> redirect login displaying error
 
-* GET templates/create -> POST FoxController -> Spring validation (name -> length & pattern) ->
+* CREATE NEW FOX: GET templates/create -> POST FoxController -> Spring validation (name -> length & pattern) ->
   - [on success] FoxService selectFox -> new Fox persisted in DB + saved to autContextFox -> redirect information
   - [on error] redirect create displaying BindingResult errors
 
-* GET information -> GET FoxController showFox -> FoxService getSelectedFox from autContextFox  + add to model 
--> ActionService actionsByFox + actionRepository -> add actions to model -> templates/information (known Tricks displayed via Fox)
+* FOX INFORMATION: GET FoxController showFox -> FoxService getSelectedFox from autContextFox  + add to model 
+-> ActionService actionsByFox + actionRepository -> add actions to model -> generate templates/information (known Tricks displayed via Fox)
 
-* GET Trick Center -> GET TricksController showTricks -> FoxService getSelectedFox from autContextFox + add to model 
+* SELECT ANOTHER FOX: GET MainController templates/index -> PathVariable ID for each Fox -> GET FoxController switchFox
+-> FoxService switchFox -> get Fox from repository & set the autContextFox...
+
+* SHOW TRICK CENTER: GET TricksController showTricks -> FoxService getSelectedFox from autContextFox + add to model 
 -> add all Trick.values() to model -> templates/feature 
   - only unknown Tricks are displayed
 
-* POST Trick Center -> POST TricksController learnTricks -> FoxService learnFoxTricks -> get Fox from repository & reset autContextFox
+* LEARN NEW TRICK: POST TricksController learnTricks -> FoxService learnFoxTricks -> get Fox from repository & reset autContextFox
 -> add Trick & save Fox to repository -> save new Action to repository -> redirect information
 
 
