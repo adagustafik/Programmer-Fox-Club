@@ -38,17 +38,17 @@ template engine
 
 ## Architecture
 ### DB Entities
-**User**
+**User**\
 @OneToMany -> Fox
 
-**Fox**
+**Fox**\
 @ManyToOne -> User\
 @ElementCollection -> Trick\
 @OneToMany -> Action
 
 **Trick**
 
-**Action**
+**Action**\
 @ManyToOne -> Fox
 
 
@@ -58,7 +58,7 @@ template engine
   MainController get authenticated user -> generate templates/index (logout, all pets, new)
   - [on error] Spring Security handles -> redirect login displaying error
 
-* CREATE NEW FOX: GET templates/create -> POST FoxController -> Spring validation (name -> length & pattern) ->
+* CREATE NEW FOX: GET templates/create -> POST FoxController -> Spring validation ->
   - [on success] FoxService selectFox -> new Fox persisted in DB + saved to autContextFox -> redirect information
   - [on error] redirect create displaying BindingResult errors
 
@@ -66,11 +66,10 @@ template engine
 -> ActionService actionsByFox + actionRepository -> add actions to model -> generate templates/information (known Tricks displayed via Fox)
 
 * SELECT ANOTHER FOX: GET MainController templates/index -> PathVariable ID for each Fox -> GET FoxController switchFox
--> FoxService switchFox -> get Fox from repository & set the autContextFox-> rest is same as above...
+-> FoxService switchFox -> get Fox from repository & set the autContextFox-> same as above...
 
 * SHOW TRICK CENTER: GET TricksController showTricks -> FoxService getSelectedFox from autContextFox + add to model 
--> add all Trick.values() to model -> templates/feature 
-  - only unknown Tricks are displayed
+-> add all Trick.values() to model -> templates/feature (only unknown Tricks are displayed)
 
 * LEARN NEW TRICK: POST TricksController learnTricks -> FoxService learnFoxTricks -> get Fox from repository & reset autContextFox
 -> add Trick & save Fox to repository -> save new Action to repository -> redirect information
