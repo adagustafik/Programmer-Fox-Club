@@ -81,7 +81,8 @@ template engine
    - debugging not permitted stylesheet issue (thymeleaf generated URL vs project folder structure)
 2. Encryption with BCryptPasswordEncoder (2 UserService interfaces needed due to circular dependencies)
 3. Leveraging AuthContext for app optimization (storing selected Fox as @Component)
-4. @Transactional to execute multiple DB calls in one session
-5. Enum conversions/comparisons Enum.valueOf(), @ElementCollection persistance
-6. Thymeleaf templates - conditional rendering, fragments
-7. Thymeleaf - limit via th:each interation index, dynamic display of pre-selected values
+4. Bad practice - reusing entity between requests & transactions (instead get Fox from repo -> then save the Tricks to repo)
+5. @Transactional to execute multiple DB calls in one session
+6. Enum conversions/comparisons Enum.valueOf(), @ElementCollection persistance
+7. Thymeleaf templates - conditional rendering, fragments
+8. Thymeleaf - limit via th:each interation index, dynamic display of pre-selected values
