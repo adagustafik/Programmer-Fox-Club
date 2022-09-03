@@ -2,7 +2,7 @@
 
 ## Main functionality
 At Programmer Fox Club you can have your very own fox. It's like a virtual tamagochi, you can feed and train your lil' one. 
-You just have to provide a name of your pet and here you go, you can play with your cutie pie.
+You just have to provide a name of your pet & you can start to play.
 
 1. Registration + Login/Logout with Spring Security
 2. Create a new Fox
@@ -42,8 +42,8 @@ template engine
 @OneToMany -> Fox
 
 **Fox**
-@ManyToOne -> User
-@ElementCollection -> Trick
+@ManyToOne -> User\
+@ElementCollection -> Trick\
 @OneToMany -> Action
 
 **Trick**
@@ -55,7 +55,7 @@ template engine
 ### Basic data flows
 * LOGIN: GET Spring Security WebMvcConfig templates/login ->
   - [on success] UserApiDto received + autContext setup (apiKey, avatarUrl, channels) -> redirect root ->
-  - MainController get authenticated user -> generate templates/index (logout, all pets, new)
+  MainController get authenticated user -> generate templates/index (logout, all pets, new)
   - [on error] Spring Security handles -> redirect login displaying error
 
 * CREATE NEW FOX: GET templates/create -> POST FoxController -> Spring validation (name -> length & pattern) ->
@@ -66,7 +66,7 @@ template engine
 -> ActionService actionsByFox + actionRepository -> add actions to model -> generate templates/information (known Tricks displayed via Fox)
 
 * SELECT ANOTHER FOX: GET MainController templates/index -> PathVariable ID for each Fox -> GET FoxController switchFox
--> FoxService switchFox -> get Fox from repository & set the autContextFox...
+-> FoxService switchFox -> get Fox from repository & set the autContextFox-> rest is same as above...
 
 * SHOW TRICK CENTER: GET TricksController showTricks -> FoxService getSelectedFox from autContextFox + add to model 
 -> add all Trick.values() to model -> templates/feature 
